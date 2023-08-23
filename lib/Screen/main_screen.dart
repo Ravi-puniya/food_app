@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/Utils/global.dart';
+import 'package:provider/provider.dart';
+import '../Provider/main_provider.dart';
 import '../Widget/Main_Screen_Item/main_item.dart';
 
 class MainScreen extends StatefulWidget {
@@ -9,39 +12,17 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
-  late TabController _controller;
-  int page = 0;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _controller = TabController(length: 4, vsync: this);
-  }
-
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<BottomNavBarProvider>(context);
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 80,
-        automaticallyImplyLeading: false,
-        leading: Container(
-            alignment: Alignment.center,
-            margin: const EdgeInsets.only(top: 20, left: 5),
-            child: IconButton(onPressed: () {}, icon: const Icon(Icons.menu))),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 30, top: 20),
-            child: Icon(Icons.shopping_cart),
-          )
-        ],
-      ),
-      body: main_screen_item_one(controller: _controller),
+      body: pages[provider.currentIndex],
       bottomNavigationBar: bottomNNav(),
     );
   }
 
   Padding bottomNNav() {
+    final provider = Provider.of<BottomNavBarProvider>(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 16, right: 10, left: 10),
       child: BottomNavigationBar(
@@ -52,11 +33,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           unselectedItemColor: Colors.grey,
           selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w200),
           elevation: 0,
-          currentIndex: page,
+          currentIndex: provider.currentIndex,
           onTap: (value) {
-            setState(() {
-              page = value;
-            });
+            provider.updateIndex(value);
           },
           items: const [
             BottomNavigationBarItem(
@@ -68,17 +47,17 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 icon: Icon(
                   Icons.favorite,
                 ),
-                label: 'Home'),
+                label: 'Favourite'),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.person,
                 ),
-                label: 'Home'),
+                label: 'Profile'),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.watch_later,
                 ),
-                label: 'Home'),
+                label: 'History'),
           ]),
     );
   }
