@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/Screen/detail_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FoodScreen extends StatelessWidget {
@@ -29,59 +30,67 @@ class FoodScreen extends StatelessWidget {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: 4,
-            itemBuilder: (context, index) => Container(
-              margin: EdgeInsets.only(
-                top: 5,
-                bottom: 40,
-                right: 20,
-              ),
-              width: 200,
-              child: Stack(
-                alignment: Alignment.bottomCenter,
-                children: [
-                  Card(
-                    child: Container(
-                      height: 160,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                      top: 20,
-                      child: PhysicalModel(
-                        color: Colors.grey,
-                        elevation: 2,
-                        shape: BoxShape.circle,
-                        child: CircleAvatar(
-                          radius: 70,
-                          backgroundImage: NetworkImage(foodimage[index]),
+            itemBuilder: (context, index) => GestureDetector(
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => DetailScreen(
+                    image: foodimage[index],
+                    text: foodname[index],
+                    price: price[index]),
+              )),
+              child: Container(
+                margin: EdgeInsets.only(
+                  top: 5,
+                  bottom: 40,
+                  right: 20,
+                ),
+                width: 200,
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    Card(
+                      child: Container(
+                        height: 160,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                      )),
-                  Container(
-                    alignment: Alignment.topCenter,
-                    height: 100,
-                    child: Flexible(
-                      child: Text(
-                        foodname[index],
-                        overflow: TextOverflow.visible,
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        textScaleFactor: 1,
-                        style: GoogleFonts.poppins(
-                            fontSize: 20, fontWeight: FontWeight.w500),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    bottom: 30,
-                    child: Text(
-                      price[index],
-                      style: GoogleFonts.poppins(
-                          fontSize: 19, fontWeight: FontWeight.w300),
+                    Positioned(
+                        top: 20,
+                        child: PhysicalModel(
+                          color: Colors.grey,
+                          elevation: 2,
+                          shape: BoxShape.circle,
+                          child: CircleAvatar(
+                            radius: 70,
+                            backgroundImage: NetworkImage(foodimage[index]),
+                          ),
+                        )),
+                    Container(
+                      alignment: Alignment.topCenter,
+                      height: 100,
+                      child: Flexible(
+                        child: Text(
+                          foodname[index],
+                          overflow: TextOverflow.visible,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          textScaleFactor: 1,
+                          style: GoogleFonts.poppins(
+                              fontSize: 20, fontWeight: FontWeight.w500),
+                        ),
+                      ),
                     ),
-                  )
-                ],
+                    Positioned(
+                      bottom: 30,
+                      child: Text(
+                        price[index],
+                        style: GoogleFonts.poppins(
+                            fontSize: 19, fontWeight: FontWeight.w300),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

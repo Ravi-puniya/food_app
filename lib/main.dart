@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/Provider/main_provider.dart';
 import 'package:food_app/Screen/Auth/auth_screen.dart';
 import 'package:food_app/Screen/cart_screen.dart';
+import 'package:food_app/Screen/detail_screen.dart';
 import 'package:food_app/Screen/main_screen.dart';
 import 'package:food_app/Screen/splash_Screen.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
             '/auth':(context) => AuthScreen(),
             '/main':(context) => MainScreen(),
             '/cart':(context) => CartScreen(),
+            
           },
           home: SplashScreen()),
     );
