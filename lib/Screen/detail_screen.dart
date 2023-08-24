@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/Widget/custom_button.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import '../Provider/main_provider.dart';
 
 class DetailScreen extends StatelessWidget {
   String image;
@@ -14,6 +17,7 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<BottomNavBarProvider>(context);
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -87,15 +91,21 @@ class DetailScreen extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
-                      CustomButton(
-                        color: Colors.red,
-                        fontsize: 20,
-                        weight: FontWeight.w300,
-                        textcolor: Colors.white,
-                        text: 'Add to cart',
-                        height: 50,
-                        radius: 20,
-                        width: double.infinity,
+                      InkWell(
+                        onTap: () {
+                          provider.additem(image, price, text);
+                          print('Item Added');
+                        },
+                        child: CustomButton(
+                          color: Colors.red,
+                          fontsize: 20,
+                          weight: FontWeight.w300,
+                          textcolor: Colors.white,
+                          text: 'Add to cart',
+                          height: 50,
+                          radius: 20,
+                          width: double.infinity,
+                        ),
                       ),
                     ],
                   ),

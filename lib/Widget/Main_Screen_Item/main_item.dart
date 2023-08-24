@@ -4,6 +4,9 @@ import 'package:food_app/Widget/Main_Screen_Item/food.dart';
 import 'package:food_app/Widget/Main_Screen_Item/sauces.dart';
 import 'package:food_app/Widget/Main_Screen_Item/snackes.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import '../../Provider/main_provider.dart';
 
 class main_screen_item_one extends StatefulWidget {
   const main_screen_item_one({
@@ -26,6 +29,7 @@ class _main_screen_item_oneState extends State<main_screen_item_one>
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<BottomNavBarProvider>(context);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -33,7 +37,13 @@ class _main_screen_item_oneState extends State<main_screen_item_one>
         leading: Container(
             alignment: Alignment.center,
             margin: const EdgeInsets.only(top: 20, left: 5),
-            child: IconButton(onPressed: () {}, icon: const Icon(Icons.menu))),
+            child: IconButton(
+                onPressed: () {
+                  provider.changeValue();
+                },
+                icon: provider.value == 1
+                    ? Icon(Icons.exit_to_app)
+                    : Icon(Icons.menu))),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 30, top: 20),
